@@ -1,24 +1,66 @@
-// Import required packages
-require('dotenv').config(); // Loads environment variables from .env file
-const express = require('express');
-const cors = require('cors');
+// backend/server.js (ESM version)
 
-// Initialize the Express app
+import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import path from 'path';
+import cookieParser from 'cookie-parser';
+import { fileURLToPath } from 'url';
+import cors from "cors";
+import fs from 'fs';
+
+import apiRoutes from './routes/apiRoutes.js';
+import videoRoutes from './routes/videoRoutes.js';
+import courseCardRoutes from './routes/courseCardRoutes.js';
+
+dotenv.config();
+
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-// Use middleware
-app.use(cors()); // Enable Cross-Origin Resource Sharing
-app.use(express.json()); // Enable the Express app to parse JSON formatted request bodies
+// Middleware
+app.use(cors({
+  origin: "http://localhost:5173",
+  credentials: true // if you ever send cookies
+}));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true })); // 🆕 For parsing form data
+app.use(cookieParser());
 
-// Define a simple route for testing
-app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to the MERN backend!' });
+// Setup __dirname
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Create upload directories if they don't exist
+const uploadDirs = ['uploads', 'uploads/videos', 'uploads/covers', 'uploads/others'];
+uploadDirs.forEach(dir => {
+  const fullPath = path.join(__dirname, dir);
+  if (!fs.existsSync(fullPath)) {
+    fs.mkdirSync(fullPath, { recursive: true });
+  }
 });
 
-// Get the port from environment variables, with a default fallback
-const PORT = process.env.PORT || 4000;
-
-// Start the server
-app.listen(PORT, () => {
-  console.log(`Server is running on port gs ${PORT}.`);
+const courseCardDirs = ['course-cards', 'course-cards/covers'];
+courseCardDirs.forEach(dir => {
+  const fullPath = path.join(__dirname, dir);
+  if (!fs.existsSync(fullPath)) {
+    fs.mkdirSync(fullPath, { recursive: true });
+  }
 });
+
+// Static files (optional if using CSS, images, etc.)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // for video uploads
+app.use("/course-cards", express.static(path.join(__dirname, "course-cards")));
+
+app.use('/', apiRoutes); // make sure apiRoutes uses `res.json()`
+app.use('/api/videos', videoRoutes); // video routes
+app.use('/api/course-cards', courseCardRoutes); // course card routes
+
+// database connection
+const MONGO_URI = process.env.MONGO_URI;
+mongoose.connect(MONGO_URI)
+  .then(() => app.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
+  }))
+  .catch(err => console.error('DB Connection Error:', err));
+
