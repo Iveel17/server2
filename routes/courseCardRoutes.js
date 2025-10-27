@@ -3,7 +3,7 @@
 import express from "express";
 import multer from "multer";
 import path from "path";
-import { createCourseCard, getCourseCards } from "../controllers/courseCardController.js";
+import { createCourseCard } from "../controllers/courseCardController.js";
 
 const router = express.Router();
 
@@ -36,6 +36,5 @@ const upload = multer({ storage, fileFilter });
 
 // ✅ Routes
 router.post("/create", upload.single("image"), createCourseCard); // POST /api/course-cards/create
-router.get("/", getCourseCards); // GET /api/course-cards
 
 export default router;

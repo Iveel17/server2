@@ -33,12 +33,3 @@ export const createCourseCard = async (req, res) => {
         res.status(500).json({ error: err.message || "Server error" });
     }
 };
-
-export const getCourseCards = async (req, res) => {
-    try {
-        const courseCards = await courseCard.find().sort({ uploadedAt: -1 });
-        res.json(courseCards);
-    } catch (err) {
-        res.status(500).json({ error: "Failed to fetch course cards" });
-    }
-};  

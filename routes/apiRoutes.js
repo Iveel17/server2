@@ -51,61 +51,6 @@ router.get('/api/public/courses', ...protectRoute.public(), (req, res) => {
 });
 
 /* ================================
-   User-Level Routes (USER+)
-   ================================ */
-// Users can enroll in courses
-router.post('/api/courses/:courseId/enroll',
-  ...protectRoute.withPermission(PERMISSIONS['enroll in courses']),
-  (req, res) => {
-    res.json({ 
-      success: true, 
-      message: `User ${req.user.firstName} enrolled in course ${req.params.courseId}`,
-      userRole: req.user.role
-    });
-  }
-);
-
-// Users can view their enrollments
-router.get('/api/user/enrollments', 
-  ...protectRoute.withPermission(PERMISSIONS['view enrollments']),
-  (req, res) => {
-    res.json({ 
-      success: true, 
-      message: `Enrollments for ${req.user.firstName}`,
-      userRole: req.user.role
-    });
-  }
-);
-
-/* ================================
-   Teacher-Level Routes (TEACHER+)
-   ================================ */
-// Teachers can create courses
-router.post('/api/courses', 
-  ...protectRoute.withPermission(PERMISSIONS['add courses']),
-  (req, res) => {
-    res.json({ 
-      success: true, 
-      message: `Course created by ${req.user.firstName} (${req.user.role})`,
-      department: req.user.teacherData?.department
-    });
-  }
-);
-
-// Teachers can manage their courses
-router.get('/api/teacher/courses', 
-  ...protectRoute.withPermission(PERMISSIONS['access plus section']),
-  (req, res) => {
-    res.json({ 
-      success: true, 
-      message: `Courses managed by ${req.user.firstName}`,
-      userRole: req.user.role,
-      department: req.user.teacherData?.department
-    });
-  }
-);
-
-/* ================================
    Admin-Only Routes
    ================================ */
 // Admin can manage all users
