@@ -1,5 +1,6 @@
 import productCard from "../models/ProductCard.js";
 
+
 export const createProductCard = async (req, res) => {
     try {
         const { id, type, title, price, description, category, stock, discount } = req.body;
