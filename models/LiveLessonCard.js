@@ -19,7 +19,6 @@ const LiveLessonCardSchema = new mongoose.Schema({
   },
   rating: { type: Number, default: 0 },
   duration: { type: Number, required: true }, // in hours
-  students: { type: Number, required: true },
   capacity: { type: Number, required: true },
   uploadedAt: { type: Date, default: Date.now },
   instructor: { type: mongoose.Schema.Types.ObjectId, ref: "Instructor" }, // optional if linked to auth

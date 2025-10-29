@@ -13,6 +13,8 @@ import apiRoutes from './routes/apiRoutes.js';
 import videoRoutes from './routes/videoRoutes.js';
 import courseCardRoutes from './routes/courseCardRoutes.js';
 import coursesPageRoutes from './routes/coursesPageRoutes.js';
+import liveLessonCardRoutes from './routes/liveLessonCardRoutes.js';
+import liveLessonsPageRoutes from './routes/liveLessonsPageRoutes.js';
 
 dotenv.config();
 
@@ -57,6 +59,8 @@ app.use('/', apiRoutes); // make sure apiRoutes uses `res.json()`
 app.use('/api/videos', videoRoutes); // video routes
 app.use('/api/course-cards', courseCardRoutes); // course card routes
 app.use(coursesPageRoutes); // courses page routes
+app.use('/api/live-lesson-cards', liveLessonCardRoutes); // live lesson card routes
+app.use(liveLessonsPageRoutes); // live lessons page routes
 
 // database connection
 const MONGO_URI = process.env.MONGO_URI;
