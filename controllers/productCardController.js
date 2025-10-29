@@ -5,8 +5,7 @@ export const createProductCard = async (req, res) => {
         const { id, type, title, price, description, category, stock, discount } = req.body;
         const image = req.file ? req.file.filename : null;
 
-        // Fixed validation - removed discount from required check since it has a default value
-        if (!id || !title || !price || !description || !category || stock === undefined || stock === null) {
+        if (!id || !title || !price || !description || !category || stock === undefined) {
             return res.status(400).json({ error: "Missing required fields" });
         }   
         if (!image) {

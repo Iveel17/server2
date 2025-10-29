@@ -54,7 +54,7 @@ courseCardDirs.forEach(dir => {
 });
 
 const liveLessonCardDirs = ['live-lesson-cards', 'live-lesson-cards/covers'];
-courseCardDirs.forEach(dir => {
+liveLessonCardDirs.forEach(dir => {
   const fullPath = path.join(__dirname, dir);
   if (!fs.existsSync(fullPath)) {
     fs.mkdirSync(fullPath, { recursive: true });
