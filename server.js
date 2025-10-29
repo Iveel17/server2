@@ -15,6 +15,8 @@ import courseCardRoutes from './routes/courseCardRoutes.js';
 import coursesPageRoutes from './routes/coursesPageRoutes.js';
 import liveLessonCardRoutes from './routes/liveLessonCardRoutes.js';
 import liveLessonsPageRoutes from './routes/liveLessonsPageRoutes.js';
+import productCardRoutes from './routes/productCardRoutes.js';
+import productsPageRoutes from './routes/productsPageRoutes.js';
 
 dotenv.config();
 
@@ -51,9 +53,27 @@ courseCardDirs.forEach(dir => {
   }
 });
 
+const liveLessonCardDirs = ['live-lesson-cards', 'live-lesson-cards/covers'];
+courseCardDirs.forEach(dir => {
+  const fullPath = path.join(__dirname, dir);
+  if (!fs.existsSync(fullPath)) {
+    fs.mkdirSync(fullPath, { recursive: true });
+  }
+});
+
+const productCardDirs = ['product-cards', 'product-cards/covers'];
+productCardDirs.forEach(dir => {
+  const fullPath = path.join(__dirname, dir);
+  if (!fs.existsSync(fullPath)) {
+    fs.mkdirSync(fullPath, { recursive: true });
+  }
+});
+
 // Static files (optional if using CSS, images, etc.)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // for video uploads
 app.use("/course-cards", express.static(path.join(__dirname, "course-cards")));
+app.use("/live-lesson-cards", express.static(path.join(__dirname, "live-lesson-cards")));
+app.use("/product-cards", express.static(path.join(__dirname, "product-cards")));
 
 app.use('/', apiRoutes); // make sure apiRoutes uses `res.json()`
 app.use('/api/videos', videoRoutes); // video routes
@@ -61,6 +81,8 @@ app.use('/api/course-cards', courseCardRoutes); // course card routes
 app.use(coursesPageRoutes); // courses page routes
 app.use('/api/live-lesson-cards', liveLessonCardRoutes); // live lesson card routes
 app.use(liveLessonsPageRoutes); // live lessons page routes
+app.use('/api/product-cards', productCardRoutes); // product card routes
+app.use(productsPageRoutes); // products page routes
 
 // database connection
 const MONGO_URI = process.env.MONGO_URI;
