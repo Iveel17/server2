@@ -45,30 +45,17 @@ uploadDirs.forEach(dir => {
   }
 });
 
-const courseCardDirs = ['course-cards', 'course-cards/covers'];
-courseCardDirs.forEach(dir => {
+const cardDirs = [
+  'course-cards/covers',
+  'live-lesson-cards/covers',
+  'product-cards/covers'
+];
+cardDirs.forEach(dir => {
   const fullPath = path.join(__dirname, dir);
   if (!fs.existsSync(fullPath)) {
-    fs.mkdirSync(fullPath, { recursive: true });
+    fs.mkdirSync(fullPath, { recursive: true }); // recursive creates parent dirs too
   }
 });
-
-const liveLessonCardDirs = ['live-lesson-cards', 'live-lesson-cards/covers'];
-liveLessonCardDirs.forEach(dir => {
-  const fullPath = path.join(__dirname, dir);
-  if (!fs.existsSync(fullPath)) {
-    fs.mkdirSync(fullPath, { recursive: true });
-  }
-});
-
-const productCardDirs = ['product-cards', 'product-cards/covers'];
-productCardDirs.forEach(dir => {
-  const fullPath = path.join(__dirname, dir);
-  if (!fs.existsSync(fullPath)) {
-    fs.mkdirSync(fullPath, { recursive: true });
-  }
-});
-
 // Static files (optional if using CSS, images, etc.)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // for video uploads
 app.use("/course-cards", express.static(path.join(__dirname, "course-cards")));
