@@ -10,7 +10,7 @@ const productCardSchema = new mongoose.Schema({
   category: { 
     type: String, 
     required: true,
-    enum: ["Data Science", "Programming", "Design", "Business", "Marketing", "Development", "Other"]
+    enum: ["Cards", "Books", "Toys", "Other"]
   },
   stock: { type: Number, required: true },
   discount: { type: Number, default: 0 }, // percentage discount

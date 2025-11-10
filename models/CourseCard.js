@@ -10,12 +10,12 @@ const courseCardSchema = new mongoose.Schema({
   category: { 
     type: String, 
     required: true,
-    enum: ["Data Science", "Programming", "Design", "Business", "Marketing", "Development", "Other"]
+    enum: ["Mathematics","English", "Other"]
   },
   level: { 
     type: String, 
     required: true,
-    enum: ["Beginner", "Intermediate", "Advanced", "Expert"]
+    enum: ["Beginner", "Intermediate", "Advanced"]
   },
   duration: { type: Number, required: true }, // in hours
   lessons: { type: Number, required: true },

@@ -10,12 +10,12 @@ const LiveLessonCardSchema = new mongoose.Schema({
   category: { 
     type: String, 
     required: true,
-    enum: ["Data Science", "Programming", "Design", "Business", "Marketing", "Development", "Other"]
+    enum: ["Mathematics","English", "Other"]
   },
   level: { 
     type: String, 
     required: true,
-    enum: ["Beginner", "Intermediate", "Advanced", "Expert"]
+    enum: ["Beginner", "Intermediate", "Advanced"]
   },
   rating: { type: Number, default: 0 },
   duration: { type: Number, required: true }, // in hours
