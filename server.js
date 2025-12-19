@@ -17,6 +17,7 @@ import liveLessonCardRoutes from './routes/liveLessonCardRoutes.js';
 import liveLessonsPageRoutes from './routes/liveLessonsPageRoutes.js';
 import productCardRoutes from './routes/productCardRoutes.js';
 import productsPageRoutes from './routes/productsPageRoutes.js';
+import topicsPageRoutes from './routes/topicsPageRoutes.js';
 
 dotenv.config();
 
@@ -70,6 +71,7 @@ app.use('/api/live-lesson-cards', liveLessonCardRoutes); // live lesson card rou
 app.use(liveLessonsPageRoutes); // live lessons page routes
 app.use('/api/product-cards', productCardRoutes); // product card routes
 app.use(productsPageRoutes); // products page routes
+app.use(topicsPageRoutes); // topics page routes
 
 // database connection
 const MONGO_URI = process.env.MONGO_URI;
