@@ -10,7 +10,6 @@ import cors from "cors";
 import fs from 'fs';
 
 import apiRoutes from './routes/apiRoutes.js';
-import videoRoutes from './routes/videoRoutes.js';
 import courseCardRoutes from './routes/courseCardRoutes.js';
 import coursesPageRoutes from './routes/coursesPageRoutes.js';
 import liveLessonCardRoutes from './routes/liveLessonCardRoutes.js';
@@ -41,7 +40,6 @@ const __dirname = path.dirname(__filename);
 
 // Create upload directories if they don't exist
 const uploadDirs = ['uploads', 
-                    'uploads/videos', 
                     'uploads/covers', 
                     'uploads/others',
                     'lessons/videos'
@@ -72,7 +70,6 @@ app.use("/product-cards", express.static(path.join(__dirname, "product-cards")))
 app.use("/lessons", express.static(path.join(__dirname, "lessons"))); // ✅ Add this line
 
 app.use('/', apiRoutes); // make sure apiRoutes uses `res.json()`
-app.use('/api/videos', videoRoutes); // video routes
 app.use('/api/course-cards', courseCardRoutes); // course card routes
 app.use(coursesPageRoutes); // courses page routes
 app.use('/api/live-lesson-cards', liveLessonCardRoutes); // live lesson card routes
