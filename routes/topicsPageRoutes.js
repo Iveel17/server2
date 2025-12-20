@@ -7,7 +7,7 @@ const router = express.Router();
  * GET topics for a specific course
  * /api/courses/:courseId/topics
  */
-router.get("/api/courses/:courseId/topics", async (req, res) => {
+router.get("/:courseId/topics", async (req, res) => {
   try {
     const { courseId } = req.params;
 
@@ -25,7 +25,7 @@ router.get("/api/courses/:courseId/topics", async (req, res) => {
   }
 });
 
-router.post("/api/courses/:courseId/topics", async (req, res) => {
+router.post("/:courseId/topics", async (req, res) => {
   try {
     const { courseId } = req.params;
     const { title, lessonCount } = req.body;

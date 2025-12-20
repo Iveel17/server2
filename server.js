@@ -18,6 +18,8 @@ import liveLessonsPageRoutes from './routes/liveLessonsPageRoutes.js';
 import productCardRoutes from './routes/productCardRoutes.js';
 import productsPageRoutes from './routes/productsPageRoutes.js';
 import topicsPageRoutes from './routes/topicsPageRoutes.js';
+import lessonRoutes from './routes/lessonRoutes.js';
+import lessonsPageRoutes from './routes/lessonsPageRoutes.js';
 
 dotenv.config();
 
@@ -38,7 +40,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Create upload directories if they don't exist
-const uploadDirs = ['uploads', 'uploads/videos', 'uploads/covers', 'uploads/others'];
+const uploadDirs = ['uploads', 
+                    'uploads/videos', 
+                    'uploads/covers', 
+                    'uploads/others',
+                    'lessons/videos'
+                  ];
 uploadDirs.forEach(dir => {
   const fullPath = path.join(__dirname, dir);
   if (!fs.existsSync(fullPath)) {
@@ -62,6 +69,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads'))); // for vid
 app.use("/course-cards", express.static(path.join(__dirname, "course-cards")));
 app.use("/live-lesson-cards", express.static(path.join(__dirname, "live-lesson-cards")));
 app.use("/product-cards", express.static(path.join(__dirname, "product-cards")));
+app.use("/lessons", express.static(path.join(__dirname, "lessons"))); // ✅ Add this line
 
 app.use('/', apiRoutes); // make sure apiRoutes uses `res.json()`
 app.use('/api/videos', videoRoutes); // video routes
@@ -71,7 +79,9 @@ app.use('/api/live-lesson-cards', liveLessonCardRoutes); // live lesson card rou
 app.use(liveLessonsPageRoutes); // live lessons page routes
 app.use('/api/product-cards', productCardRoutes); // product card routes
 app.use(productsPageRoutes); // products page routes
-app.use(topicsPageRoutes); // topics page routes
+app.use("/api/topics", lessonRoutes); // lesson routes
+app.use("/topics", lessonsPageRoutes); // lessons page routes
+app.use("/api/courses", topicsPageRoutes); // topics page routes
 
 // database connection
 const MONGO_URI = process.env.MONGO_URI;
