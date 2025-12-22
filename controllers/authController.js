@@ -4,11 +4,12 @@ import User, { ROLES } from '../models/User.js'; // ✅ FIXED: Added missing Use
 
 // Helper to format user for response
 const formatUserResponse = (user) => ({
-  id: user._id,
+  id: user.id,
   firstName: user.firstName,
   lastName: user.lastName,
   email: user.email,
-  role: user.role
+  role: user.role,
+  profilePicture: user.profilePicture?.url || ""
 });
 
 // Signup
