@@ -73,6 +73,10 @@ const userSchema = new mongoose.Schema({
       },
       message: 'You must agree to the terms and conditions'
     }
+  },
+  profilePicture: {
+    url: { type: String, default: "" },
+    publicId: { type: String, default: "" }
   }
 }, {
   timestamps: true
