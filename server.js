@@ -19,6 +19,7 @@ import productsPageRoutes from './routes/productsPageRoutes.js';
 import topicsPageRoutes from './routes/topicsPageRoutes.js';
 import lessonRoutes from './routes/lessonRoutes.js';
 import lessonsPageRoutes from './routes/lessonsPageRoutes.js';
+import profileRoutes from './routes/profileRoutes.js';
 
 dotenv.config();
 
@@ -79,6 +80,8 @@ app.use(productsPageRoutes); // products page routes
 app.use("/api/topics", lessonRoutes); // lesson routes
 app.use("/topics", lessonsPageRoutes); // lessons page routes
 app.use("/api/courses", topicsPageRoutes); // topics page routes
+app.use("/api/users", profileRoutes); // profile routes
+
 
 // database connection
 const MONGO_URI = process.env.MONGO_URI;
