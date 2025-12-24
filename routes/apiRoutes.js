@@ -32,7 +32,8 @@ router.get('/api/user/profile', ...protectRoute.user(), (req, res) => {
       lastName: req.user.lastName,
       email: req.user.email,
       role: req.user.role,
-      department: req.user.teacherData?.department
+      department: req.user.teacherData?.department,
+      profilePicture: req.user.profilePicture // ✅ ADD THIS
     }
   });
 });
